@@ -1,0 +1,96 @@
+<mat-tab-group animationDuration="2000ms">
+  <mat-tab label="Consumindo API">
+
+<mat-card>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="pb-3" >
+        <mat-toolbar class="toolbar02">
+          Stickers
+        </mat-toolbar>
+        <mat-card-header>
+          <form [formGroup]="formId">
+            <label for="nId">Id para Pesquisa</label>
+            <mat-form-field appearance="fill">
+              <input matInput type="number" min="1" max="300" placeholder="numero" formControlName="idfig" />
+              <mat-error *ngIf="formId.get('idfig')?.invalid"> {{ getErrorMessage('idfig') }} </mat-error>
+            </mat-form-field>
+          </form>
+
+          <mat-card-actions class="bt-container">
+            <button mat-raised-button [disabled]=formId.invalid (click)="onSubmit()" color="primary"
+              style="margin: 1px">
+              <mat-icon>image_search</mat-icon>
+            </button>
+          </mat-card-actions>
+
+        </mat-card-header>
+        <mat-card-content>
+          <div class="mat-elevation-z8">
+            <div  class="card-lado-lado" *ngFor="let sticker of figurinhas$ |async">
+              <mat-card>
+                <mat-card-header class="alinhaCentro">
+                  <mat-card-title class="fontTitle">{{ sticker.titulodto }}</mat-card-title>
+                  <mat-card-title *ngIf="sticker == null"> Titulo </mat-card-title>
+                </mat-card-header>
+
+                <mat-card-content class="alinhaCentro">
+
+                    <img mat-card-image class="cardimg" src="{{ sticker.imagemurldto }}">
+
+                </mat-card-content>
+                <mat-card-actions>
+                  <button mat-button  matTooltip="Visualizar Fig Original"   (click)="onClickView(sticker.imagemurldto)">
+                    <mat-icon>visibility</mat-icon>
+                  </button>
+                  <button mat-button  [disabled]=formText.invalid matTooltip="Gerar e Visualizar Nova Fig" (click)="OnClickGeraFig(sticker)">
+                    <mat-icon>camera</mat-icon>
+                  </button>
+                  <button mat-button [disabled]="sticker.imagembase64 == null" matTooltip="Salvar Sticker" (click)="onClickSave(sticker)">
+                    <mat-icon>save</mat-icon>
+                  </button>
+
+                    <form [formGroup]="formText">
+                      <mat-form-field class="newWidth">
+                        <input matInput  type="text" maxlength="15" placeholder="texto" formControlName="textView" #texto/>
+                      </mat-form-field>
+
+                    </form>
+
+                </mat-card-actions>
+              </mat-card>
+
+
+              </div>
+
+          </div>
+        </mat-card-content>
+
+      </div>
+
+    </div>
+    <div class="col-md-4" >
+      <div class="mat-elevation-z8">
+      <mat-card class="newFig">
+        <mat-card-header>
+          <mat-toolbar class="toolbar02">
+          <mat-card-title>{{ tipoDaFigurinha }}</mat-card-title>
+        </mat-toolbar>
+        </mat-card-header>
+        <mat-card-content >
+      <img mat-card-image class="img01" src = "{{ novafigurinha }}" />
+    </mat-card-content>
+    </mat-card>
+  </div>
+    </div>
+  </div>
+</mat-card>
+
+</mat-tab>
+
+<mat-tab label="Stickers Salvo">
+  <app-stickersaved></app-stickersaved>
+</mat-tab>
+
+</mat-tab-group>
