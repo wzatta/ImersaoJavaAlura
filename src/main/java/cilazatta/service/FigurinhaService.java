@@ -42,6 +42,14 @@ public class FigurinhaService {
 		
 	}
 	
+	public StickerDTO findById(Long id) {
+		
+		Sticker sticke = this.figRepo.findById(id).orElseThrow(
+				()->new FieldDataIntegrityViolationException("registro não encontrado"));
+		
+		
+		return new StickerDTO(sticke);
+	}
 
 
 	public List<StickerDTO> findAll(){
@@ -53,5 +61,15 @@ public class FigurinhaService {
 				.collect(Collectors.toList());
 		return listDto;
 	}
+	
+	
+	public Boolean deleteById(Long id) {
+		
+		return this.figRepo.findById(id).map(recordFound-> {
+			this.figRepo.deleteById(id);
+			return true;}).orElse(false);
+	}
+	
+	
 
 }

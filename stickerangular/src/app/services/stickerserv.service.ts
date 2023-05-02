@@ -52,6 +52,13 @@ export class StickerservService {
 
   }
 
+  deleteReg(sticker: Stickerdto){
+     return this.httpClient.delete<Stickerdto>(this.APINEWFIG+"/"+sticker.id);
+  }
+
+
+
+
 
   findAnimeById(record: Partial<Pesquisa>) {
     return this.httpClient.get<Stickerdto>(this.APIANIME + "/" + record.idfig);

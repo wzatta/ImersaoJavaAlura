@@ -1,10 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { StickerservService } from '../../services/stickerserv.service';
 import { Observable,  of } from 'rxjs';
 import { Stickerdto } from '../model/stickerdto';
 import { Imagemdto } from '../model/Imagemdto';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { StickersavedComponent } from '../stickersaved/stickersaved.component';
+import { MatTabChangeEvent } from '@angular/material/tabs';
+
+
+
 
 @Component({
   selector: 'app-stickerview',
@@ -12,6 +17,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./stickerview.component.scss']
 })
 export class StickerviewComponent implements OnInit  {
+
+@ViewChild(StickersavedComponent) private stickerSaved : StickersavedComponent | any;
 
   anime: Stickerdto | any = {};
   rick: Stickerdto | any = {};
@@ -38,7 +45,7 @@ export class StickerviewComponent implements OnInit  {
  formId = this.formBuilder.group({
       idfig:['',[Validators.required,
                   Validators.min(1),
-                  Validators.max(300)]]
+                  Validators.max(1000)]]
   });
 
   formText = this.formBuilder.group({
@@ -54,6 +61,8 @@ export class StickerviewComponent implements OnInit  {
   }
 
   ngOnInit(): void {
+    this.tipoDaFigurinha = "O Melhor";
+  this.novafigurinha = "https://atletico.com.br/wp-content/uploads/2022/01/atletico.svg";
   }
 
 
@@ -75,10 +84,22 @@ export class StickerviewComponent implements OnInit  {
       complete : ()=> {this.onSucess()},
       error : ()=> {this.onError()}
   });
+
+  }
+
+  onTabChanched(event: MatTabChangeEvent){
+    if(event.index == 0){
+      this.ngOnInit();
+    } else{
+      this.stickerSaved.ngOnInit();
+    }
+
   }
 
 
+
   onSucess(){
+
     this.snackbar.open('Registro Salvo com Sucesso','',{duration:5000});
   }
 
@@ -116,7 +137,7 @@ export class StickerviewComponent implements OnInit  {
     }
 
     if(field?.hasError('min') || field?.hasError('max')){
-      return 'valor deve ser de 1 a 300 !';
+      return 'valor deve ser de 1 a 1000 !';
     }
 
     return 'Campo Invalido';

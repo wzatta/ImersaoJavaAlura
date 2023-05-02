@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,10 +30,6 @@ public class FigController {
 	
 	@PostMapping
 	public ResponseEntity<StickerDTO> saveFig(@RequestBody StickerDTO stickerDto){
-		
-		System.out.println(stickerDto.getTipodto());
-		System.out.println(stickerDto.getTextodto().length());
-		
 		
 		stickerDto = figServ.saveFig(stickerDto);
 		return ResponseEntity.created(null).body(stickerDto);
@@ -58,5 +56,16 @@ public class FigController {
 		 
 	 }
 	
+		@DeleteMapping(value = "/{id}")
+		public ResponseEntity<Void> deleteReg(@PathVariable Long id) {
+
+			Boolean isDeletado = this.figServ.deleteById(id);
+			if (isDeletado) {
+				return ResponseEntity.noContent().<Void>build();
+			} else {
+				return ResponseEntity.notFound().build();
+			}
+
+		}
 
 }

@@ -1,4 +1,4 @@
-<mat-tab-group animationDuration="2000ms">
+<mat-tab-group animationDuration="2000ms" (selectedTabChange)="onTabChanched($event)">
   <mat-tab label="Consumindo API">
 
 <mat-card>
@@ -9,16 +9,16 @@
         <mat-toolbar class="toolbar02">
           Stickers
         </mat-toolbar>
-        <mat-card-header>
-          <form [formGroup]="formId">
+        <mat-card-header class="container01 alinhaCentro">
+          <form class="container01"   [formGroup]="formId">
             <label for="nId">Id para Pesquisa</label>
             <mat-form-field appearance="fill">
-              <input matInput type="number" min="1" max="300" placeholder="numero" formControlName="idfig" />
+              <input matInput type="number" min="1" max="1000" placeholder="numero" formControlName="idfig" />
               <mat-error *ngIf="formId.get('idfig')?.invalid"> {{ getErrorMessage('idfig') }} </mat-error>
             </mat-form-field>
           </form>
 
-          <mat-card-actions class="bt-container">
+          <mat-card-actions class="container01">
             <button mat-raised-button [disabled]=formId.invalid (click)="onSubmit()" color="primary"
               style="margin: 1px">
               <mat-icon>image_search</mat-icon>
@@ -26,20 +26,18 @@
           </mat-card-actions>
 
         </mat-card-header>
-        <mat-card-content>
+        <mat-card-content class="container01">
           <div class="mat-elevation-z8">
             <div  class="card-lado-lado" *ngFor="let sticker of figurinhas$ |async">
-              <mat-card>
+              <mat-card class="container01">
                 <mat-card-header class="alinhaCentro">
                   <mat-card-title class="fontTitle">{{ sticker.titulodto }}</mat-card-title>
-                  <mat-card-title *ngIf="sticker == null"> Titulo </mat-card-title>
                 </mat-card-header>
 
                 <mat-card-content class="alinhaCentro">
-
                     <img mat-card-image class="cardimg" src="{{ sticker.imagemurldto }}">
-
                 </mat-card-content>
+
                 <mat-card-actions>
                   <button mat-button  matTooltip="Visualizar Fig Original"   (click)="onClickView(sticker.imagemurldto)">
                     <mat-icon>visibility</mat-icon>
@@ -89,7 +87,7 @@
 
 </mat-tab>
 
-<mat-tab label="Stickers Salvo">
+<mat-tab  label="Stickers Salvo">
   <app-stickersaved></app-stickersaved>
 </mat-tab>
 

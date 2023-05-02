@@ -12,52 +12,30 @@
         <mat-card-content>
           <div class="mat-elevation-z8" >
 
-            <div id="carouselExample" class="carousel slide">
-              <div class="carousel-inner">
+          <ngb-carousel [showNavigationArrows]="true">
+            <ng-template ngbSlide *ngFor="let sticker of figurinhas$ |async">
 
-            <div  class="card-lado-lado carousel-item active" *ngFor="let sticker of figurinhas$ |async">
-              <mat-card>
+              <mat-card class="cardimg">
                 <mat-card-header class="alinhaCentro">
                   <mat-card-title class="fontTitle">{{ sticker.titulodto }}</mat-card-title>
-                  <mat-card-title *ngIf="sticker == null"> Titulo </mat-card-title>
                 </mat-card-header>
 
-                <mat-card-content class="alinhaCentro">
+                <mat-card-content  class="picsum-img-wrapper alinhaCentro">
 
-                    <img mat-card-image class="cardimg" src={{sticker.imagemurldto}}>
+                    <img mat-card-image class="cardimg"  src={{sticker.imagemurldto}}>
 
                 </mat-card-content>
-                <mat-card-actions>
+                <mat-card-actions class="alinhaCentro">
                   <button mat-button  matTooltip="Visualizar Fig Original" (click)="onClickView(sticker.imagembase64)">
                     <mat-icon>visibility</mat-icon>
                   </button>
-                  <button mat-button   matTooltip="Gerar e Visualizar Nova Fig" >
-                    <mat-icon>camera</mat-icon>
-                  </button>
-                  <button mat-button [disabled]="sticker.imagembase64 == null" matTooltip="Salvar Sticker" >
-                    <mat-icon>save</mat-icon>
+                  <button mat-button   matTooltip="Excluir Sticker" (click)="onClickDelete(sticker)">
+                    <mat-icon>delete</mat-icon>
                   </button>
                 </mat-card-actions>
               </mat-card>
-              </div>
-        
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-
-
-
-
-        
-        
-        
+              </ng-template>
+            </ngb-carousel>
             </div>
         </mat-card-content>
       </div>

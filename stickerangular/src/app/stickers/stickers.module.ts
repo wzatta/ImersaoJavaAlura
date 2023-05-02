@@ -6,7 +6,7 @@ import { StickerviewComponent } from './stickerview/stickerview.component';
 import { AppMaterialModule } from '../shared/app-material/app-material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StickersavedComponent } from './stickersaved/stickersaved.component';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { StickersavedComponent } from './stickersaved/stickersaved.component';
     StickersRoutingModule,
     AppMaterialModule,
     ReactiveFormsModule,
-
+    NgbModule
 
   ]
 })

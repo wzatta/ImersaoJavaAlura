@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import cilazatta.response.anime.AnimeResponse;
+import cilazatta.service.exceptions.FieldDataIntegrityViolationException;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -27,8 +28,8 @@ public class AnimeClient {
 				.get()
 				.uri("/anime/"+id)
 				.retrieve()
-				 .onStatus(HttpStatusCode ::is4xxClientError  ,
-						 error-> Mono.error(new RuntimeException("verifique os Parametros")))
+				// .onStatus(HttpStatusCode ::is4xxClientError  ,
+				//		 error-> Mono.error(new FieldDataIntegrityViolationException("verifique os Parametros")))
 				.bodyToMono(AnimeResponse.class);
 		
 		return monoAnime.block();
